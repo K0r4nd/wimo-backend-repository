@@ -1,10 +1,22 @@
-package com.k0r4nd.wimo.api.model;
+package com.k0r4nd.wimo.data.model;
 
-import com.k0r4nd.wimo.data.model.OrderEntity;
+import java.util.UUID;
 
-public class Order {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import com.k0r4nd.wimo.api.model.Order;
+
+@Entity
+@Table(name = "orders")
+public class OrderEntity {
+
+	@javax.persistence.Id
 	private String id;
+
+	@ManyToOne
+	private UserEntity user;
 
 	private String name;
 
@@ -18,34 +30,30 @@ public class Order {
 
 	private Long deliveryDate;
 
-	private String deliveryState;
+	private String status;
 
-	private String deliveryStateText;
+	private String statusText;
 
 	private Long lastStatusUpdate;
 
-	private boolean sentByUser;
+	private Boolean sentByUser;
 
-	public Order(OrderEntity entity) {
-		this.id = entity.getId();
-		this.name = entity.getName();
-		this.trackingId = entity.getTrackingId();
-		this.shipperName = entity.getShipperName();
-		this.destinationAddress = entity.getDestinationAddress();
-		this.shippingDate = entity.getShippingDate();
-		this.deliveryDate = entity.getDeliveryDate();
-		this.deliveryState = entity.getStatus();
-		this.deliveryStateText = entity.getStatusText();
-		this.lastStatusUpdate = entity.getLastStatusUpdate();
-		this.sentByUser = entity.getSentByUser();
+	public OrderEntity(Order order) {
+		this.id = UUID.randomUUID().toString();
+		this.name = order.getName();
+		this.trackingId = order.getTrackingId();
+		this.shipperName = order.getShipperName();
+		this.destinationAddress = order.getDestinationAddress();
+		this.shippingDate = order.getShippingDate();
+		this.deliveryDate = order.getDeliveryDate();
+		this.status = order.getDeliveryState();
+		this.statusText = order.getDeliveryStateText();
+		this.lastStatusUpdate = order.getLastStatusUpdate();
+		this.sentByUser = order.isSentByUser();
 	}
 
-	public Order() {
+	public OrderEntity() {
 
-	}
-
-	public Order(String trackingId) {
-		this.trackingId = trackingId;
 	}
 
 	public String getId() {
@@ -54,6 +62,14 @@ public class Order {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public String getName() {
@@ -104,20 +120,20 @@ public class Order {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public String getDeliveryState() {
-		return deliveryState;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setDeliveryState(String deliveryState) {
-		this.deliveryState = deliveryState;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getDeliveryStateText() {
-		return deliveryStateText;
+	public String getStatusText() {
+		return statusText;
 	}
 
-	public void setDeliveryStateText(String deliveryStateText) {
-		this.deliveryStateText = deliveryStateText;
+	public void setStatusText(String statusText) {
+		this.statusText = statusText;
 	}
 
 	public Long getLastStatusUpdate() {
@@ -128,11 +144,12 @@ public class Order {
 		this.lastStatusUpdate = lastStatusUpdate;
 	}
 
-	public boolean isSentByUser() {
+	public Boolean getSentByUser() {
 		return sentByUser;
 	}
 
-	public void setSentByUser(boolean sendByUser) {
-		this.sentByUser = sendByUser;
+	public void setSentByUser(Boolean sentByUser) {
+		this.sentByUser = sentByUser;
 	}
+
 }

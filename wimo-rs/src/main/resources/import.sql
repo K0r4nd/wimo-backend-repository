@@ -1,0 +1,7 @@
+INSERT INTO wimo.users (id, password, name, surname, address) VALUES('0ebc344e-bf60-46bb-9f3f-e019596165cb','123','Marcel','Mueller', 'Poststr. 4, 13509 Berlin')
+
+INSERT INTO wimo.orders (id, user_Id,name,tracking_Id,shipper_Name,destination_Address,shipping_Date,delivery_Date,status,status_Text,last_Status_Update,sent_By_User) VALUES('0ebc344e-bf60-46bb-9f3f-e019596165cf','0ebc344e-bf60-46bb-9f3f-e019596165cb','My First Order', 'DHL123','DHL', 'Poststr. 4, 13509 Berlin',1454507918614, 1454507918614, 'DELIVERED', 'Paket wurde beim Nachbarn zugestellt',1454507918614,false)
+
+INSERT INTO wimo.orders (id, user_Id,name,tracking_Id,shipper_Name,destination_Address,shipping_Date,delivery_Date,status,status_Text,last_Status_Update,sent_By_User) VALUES('0ebc344e-bf60-46bb-9f3f-e019596165ca','0ebc344e-bf60-46bb-9f3f-e019596165cb','My Second Order', 'HERMES123','HERMES', 'Poststr.. 4, 15409 Berlin',1454507918614, 1454507918614, 'DELIVERED', 'Paket wurde beim Nachbarn zugestellt',1454507918614,false)
+
+INSERT INTO wimo.orders (id, user_Id,name,tracking_Id,shipper_Name,destination_Address,shipping_Date,delivery_Date,status,status_Text,last_Status_Update,sent_By_User) VALUES('0ebc344e-bf60-46bb-9f3f-e019596165cb','0ebc344e-bf60-46bb-9f3f-e019596165cb','My First Sent Package', 'DHL456','DHL', 'Bahnhofsstr. 7, 13909 Berlin',1454507918614, 1454507918614, 'DELIVERED', 'Paket wurde zugestellt',1454507918614,true)

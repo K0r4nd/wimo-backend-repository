@@ -1,0 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS wimo
+
+USE wimo
+
+CREATE TABLE IF NOT EXISTS wimo.users (id VARCHAR(36) PRIMARY KEY,password VARCHAR(255) NOT NULL,name VARCHAR(255),surname VARCHAR(255),address VARCHAR(255))
+
+CREATE TABLE IF NOT EXISTS wimo.orders (id VARCHAR(36) PRIMARY KEY,userId VARCHAR(36) NOT NULL,name VARCHAR(255),trackingId VARCHAR(255) NOT NULL,shipperName VARCHAR(255),destinationAddress VARCHAR(255),shippingDate BIGINT,deliveryDate BIGINT,status VARCHAR(255),statusText VARCHAR(255),lastStatusUpdate BIGINT,sentByUser BOOLEAN,FOREIGN KEY (userId) REFERENCES wimo.users(id))
