@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.k0r4nd.wimo.api.model.Order;
+import com.k0r4nd.wimo.api.model.Shipper;
 import com.k0r4nd.wimo.api.model.User;
 import com.k0r4nd.wimo.data.model.OrderEntity;
 import com.k0r4nd.wimo.data.model.UserEntity;
@@ -22,6 +23,7 @@ public class OrderService {
 		OrderEntity entity = new OrderEntity(order);
 		entity = orderRepository.save(entity);
 		order.setId(entity.getId());
+		order.setShipperName(Shipper.DHL);
 		return order;
 	}
 

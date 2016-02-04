@@ -3,16 +3,21 @@ package com.k0r4nd.wimo.data.model;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.k0r4nd.wimo.api.model.DeliveryStatus;
 import com.k0r4nd.wimo.api.model.Order;
+import com.k0r4nd.wimo.api.model.Shipper;
 
 @Entity
 @Table(name = "orders")
 public class OrderEntity {
 
-	@javax.persistence.Id
+	@Id
 	private String id;
 
 	@ManyToOne
@@ -22,7 +27,8 @@ public class OrderEntity {
 
 	private String trackingId;
 
-	private String shipperName;
+	@Enumerated(EnumType.STRING)
+	private Shipper shipperName;
 
 	private String destinationAddress;
 
@@ -30,7 +36,8 @@ public class OrderEntity {
 
 	private Long deliveryDate;
 
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private DeliveryStatus status;
 
 	private String statusText;
 
@@ -40,7 +47,6 @@ public class OrderEntity {
 
 	public OrderEntity(Order order) {
 		this.id = UUID.randomUUID().toString();
-		this.name = order.getName();
 		this.trackingId = order.getTrackingId();
 		this.shipperName = order.getShipperName();
 		this.destinationAddress = order.getDestinationAddress();
@@ -88,11 +94,11 @@ public class OrderEntity {
 		this.trackingId = trackingId;
 	}
 
-	public String getShipperName() {
+	public Shipper getShipperName() {
 		return shipperName;
 	}
 
-	public void setShipperName(String shipperName) {
+	public void setShipperName(Shipper shipperName) {
 		this.shipperName = shipperName;
 	}
 
@@ -120,11 +126,11 @@ public class OrderEntity {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public String getStatus() {
+	public DeliveryStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(DeliveryStatus status) {
 		this.status = status;
 	}
 

@@ -6,11 +6,9 @@ public class Order {
 
 	private String id;
 
-	private String name;
-
 	private String trackingId;
 
-	private String shipperName;
+	private Shipper shipperName;
 
 	private String destinationAddress;
 
@@ -18,7 +16,7 @@ public class Order {
 
 	private Long deliveryDate;
 
-	private String deliveryState;
+	private DeliveryStatus deliveryState;
 
 	private String deliveryStateText;
 
@@ -28,7 +26,6 @@ public class Order {
 
 	public Order(OrderEntity entity) {
 		this.id = entity.getId();
-		this.name = entity.getName();
 		this.trackingId = entity.getTrackingId();
 		this.shipperName = entity.getShipperName();
 		this.destinationAddress = entity.getDestinationAddress();
@@ -56,14 +53,6 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getTrackingId() {
 		return trackingId;
 	}
@@ -72,11 +61,11 @@ public class Order {
 		this.trackingId = trackingId;
 	}
 
-	public String getShipperName() {
+	public Shipper getShipperName() {
 		return shipperName;
 	}
 
-	public void setShipperName(String shipperName) {
+	public void setShipperName(Shipper shipperName) {
 		this.shipperName = shipperName;
 	}
 
@@ -104,11 +93,11 @@ public class Order {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public String getDeliveryState() {
+	public DeliveryStatus getDeliveryState() {
 		return deliveryState;
 	}
 
-	public void setDeliveryState(String deliveryState) {
+	public void setDeliveryState(DeliveryStatus deliveryState) {
 		this.deliveryState = deliveryState;
 	}
 
