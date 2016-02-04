@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.k0r4nd.wimo.api.model.Order;
+import com.k0r4nd.wimo.api.model.exceptions.ResourceNotFoundException;
 import com.k0r4nd.wimo.service.OrderService;
 import com.k0r4nd.wimo.service.ShipperService;
 
@@ -28,7 +29,7 @@ public class OrderController {
 	public Order createOrder(@RequestBody Order order) {
 		order = shipperService.findOrderByTrackingId(order.getTrackingId());
 		if(order == null ){
-			throw new NotFoundException();
+			throw new ResourceNotFoundException("Order with trackingId was not found");
 		}
 		return orderService.save(order);
 	}

@@ -4,6 +4,6 @@ import com.k0r4nd.wimo.api.model.Order;
 
 public interface ShipperServiceFacade {
 	
-	public Order findOrderByTrackingId(String trackingId);
+	public Order findByTrackingId(String trackingId);
 
 }

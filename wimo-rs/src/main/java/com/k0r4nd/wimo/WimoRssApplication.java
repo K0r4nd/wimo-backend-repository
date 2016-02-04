@@ -21,4 +21,6 @@ public class WimoRssApplication {
 		registration.addUrlMappings("/console/*");
 		return registration;
 	}
+	
+	
 }

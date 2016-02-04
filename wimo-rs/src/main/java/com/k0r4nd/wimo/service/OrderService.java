@@ -23,7 +23,6 @@ public class OrderService {
 		OrderEntity entity = new OrderEntity(order);
 		entity = orderRepository.save(entity);
 		order.setId(entity.getId());
-		order.setShipperName(Shipper.DHL);
 		return order;
 	}
 
