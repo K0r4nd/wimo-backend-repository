@@ -1,3 +1,4 @@
+package com.k0r4nd.wimo.config;
 // package com.k0r4nd.api.config;
 //
 // import org.springframework.beans.factory.annotation.Autowired;
