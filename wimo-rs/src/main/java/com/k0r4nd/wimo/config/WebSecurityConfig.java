@@ -8,25 +8,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.k0r4nd.wimo.service.WimoUserDetailsService;
+import com.k0r4nd.wimo.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private WimoUserDetailsService wimoUserService;
+	private UserService userService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/users","/mock/dhl", "/mock/hermes").permitAll()
-		.anyRequest().authenticated().
-		and().addFilter(new BasicAuthenticationFilter(this.authenticationManager()))
-		.csrf().disable();
+		http.authorizeRequests().antMatchers("/users", "/mock/dhl", "/mock/hermes").permitAll().anyRequest()
+				.authenticated().and().addFilter(new BasicAuthenticationFilter(this.authenticationManager())).csrf()
+				.disable();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(wimoUserService).passwordEncoder(ApplicationConfig.passwordEncoder());
+		auth.userDetailsService(userService).passwordEncoder(ApplicationConfig.passwordEncoder());
 	}
 }
