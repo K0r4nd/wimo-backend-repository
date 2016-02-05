@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.k0r4nd.wimo.api.model.Order;
-import com.k0r4nd.wimo.api.model.Shipper;
 import com.k0r4nd.wimo.api.model.User;
 import com.k0r4nd.wimo.data.model.OrderEntity;
 import com.k0r4nd.wimo.data.model.UserEntity;
@@ -18,8 +17,6 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-	
-	
 
 	public Order save(Order order) {
 		OrderEntity entity = new OrderEntity(order);

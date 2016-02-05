@@ -23,6 +23,7 @@ public class User {
 	
 	public User(UserEntity entity){
 		this.id=entity.getId();
+		this.password=entity.getPassword();
 		this.name=entity.getName();
 		this.surname=entity.getSurname();
 		this.address=entity.getAddress();

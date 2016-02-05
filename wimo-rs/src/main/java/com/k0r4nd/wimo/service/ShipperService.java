@@ -7,28 +7,23 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-import com.k0r4nd.wimo.api.mock.MockController;
 import com.k0r4nd.wimo.api.model.Order;
-import com.k0r4nd.wimo.ext.api.DhlCommand;
 import com.k0r4nd.wimo.ext.api.DhlServiceFacade;
-import com.k0r4nd.wimo.ext.api.HermesCommand;
 import com.k0r4nd.wimo.ext.api.HermesServiceFacade;
 import com.k0r4nd.wimo.ext.api.ShipperServiceFacade;
-import com.netflix.hystrix.HystrixCommand;
 
 @Component
 public class ShipperService {
-	
+
 	@Autowired
 	private DhlServiceFacade dhlFacade;
-	
+
 	@Autowired
 	private HermesServiceFacade hermesFacade;
-	
+
 	private List<ShipperServiceFacade> shippers;
-	
+
 	public Order findOrderByTrackingId(String trackingId) {
 		Order order = null;
 		for (ShipperServiceFacade shipperServiceFacade : shippers) {
@@ -42,7 +37,7 @@ public class ShipperService {
 	}
 
 	@PostConstruct
-	void init(){
+	void init() {
 		shippers = new ArrayList<ShipperServiceFacade>();
 		shippers.add(dhlFacade);
 		shippers.add(hermesFacade);

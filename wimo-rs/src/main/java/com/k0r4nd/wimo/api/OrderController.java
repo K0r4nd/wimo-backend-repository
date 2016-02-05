@@ -3,6 +3,7 @@ package com.k0r4nd.wimo.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ public class OrderController {
 	@Autowired
 	private ShipperService shipperService;
 
+	@Secured("ROLE_DEFAULT")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public Order createOrder(@RequestBody Order order) {
 		order = shipperService.findOrderByTrackingId(order.getTrackingId());
@@ -38,6 +40,7 @@ public class OrderController {
 		return newOrder;
 	}
 
+	@Secured("ROLE_DEFAULT")
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public List<Order> getDummyOrder() {
 		return orderService.findAllOrders();

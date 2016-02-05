@@ -1,6 +1,5 @@
 package com.k0r4nd.wimo.service;
 
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +18,11 @@ public class UserService {
 		userRepository.save(entity);
 		user.setId(entity.getId());
 		return user;
+	}
+	
+	public User findUserById(String id){
+		UserEntity entity = userRepository.findOne(id);
+		return new User(entity);
 	}
 	
 }

@@ -1,16 +1,13 @@
 package com.k0r4nd.wimo.data.model;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.tomcat.util.security.MD5Encoder;
-
 import com.k0r4nd.wimo.api.model.User;
+import com.k0r4nd.wimo.config.ApplicationConfig;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +23,7 @@ public class UserEntity {
 	private String surname;
 
 	private String address;
-	
+
 	private String gcmToken;
 
 	public UserEntity() {
@@ -34,16 +31,12 @@ public class UserEntity {
 	}
 
 	public UserEntity(User user) {
-		this.id = user.getId()==null? UUID.randomUUID().toString():user.getId();
-		try {
-			this.password = MessageDigest.getInstance("MD5").digest(user.getPassword().getBytes()).toString();
-		} catch (NoSuchAlgorithmException e) {
-			this.password=user.getPassword();
-		}
+		this.id = user.getId() == null ? UUID.randomUUID().toString() : user.getId();
+		this.password = ApplicationConfig.passwordEncoder().encode(user.getPassword()).toString();
 		this.name = user.getName();
 		this.surname = user.getSurname();
 		this.address = user.getAddress();
-		this.gcmToken=user.getGcmToken();
+		this.gcmToken = user.getGcmToken();
 	}
 
 	public String getId() {
@@ -59,11 +52,7 @@ public class UserEntity {
 	}
 
 	public void setPassword(String password) {
-		try {
-			this.password = MessageDigest.getInstance("MD5").digest(password.getBytes()).toString();
-		} catch (NoSuchAlgorithmException e) {
-			this.password=password;
-		}
+		this.password = ApplicationConfig.passwordEncoder().encode(password).toString();
 	}
 
 	public String getName() {
