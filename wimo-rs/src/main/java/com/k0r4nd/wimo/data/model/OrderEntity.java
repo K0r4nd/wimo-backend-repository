@@ -2,6 +2,7 @@ package com.k0r4nd.wimo.data.model;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,8 +23,6 @@ public class OrderEntity {
 
 	@ManyToOne
 	private UserEntity user;
-
-	private String name;
 
 	private String trackingId;
 
@@ -46,7 +45,7 @@ public class OrderEntity {
 	private Boolean sentByUser;
 
 	public OrderEntity(Order order) {
-		this.id = UUID.randomUUID().toString();
+		this.id = order.getId()==null? UUID.randomUUID().toString():order.getId();
 		this.trackingId = order.getTrackingId();
 		this.shipperName = order.getShipperName();
 		this.destinationAddress = order.getDestinationAddress();
@@ -76,14 +75,6 @@ public class OrderEntity {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getTrackingId() {

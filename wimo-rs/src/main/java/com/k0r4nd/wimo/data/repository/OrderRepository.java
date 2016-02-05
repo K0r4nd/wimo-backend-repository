@@ -11,4 +11,6 @@ import com.k0r4nd.wimo.data.model.UserEntity;
 public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
 
 	List<OrderEntity> findByUser(UserEntity user);
+	
+	List<OrderEntity> findByTrackingId(String trackingId);
 }

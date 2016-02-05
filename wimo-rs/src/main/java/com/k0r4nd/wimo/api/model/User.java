@@ -1,10 +1,11 @@
 package com.k0r4nd.wimo.api.model;
 
-import java.util.UUID;
+import com.k0r4nd.wimo.config.ApplicationConfig;
+import com.k0r4nd.wimo.data.model.UserEntity;
 
 public class User {
 
-	private UUID id;
+	private String id;
 
 	private String password;
 
@@ -13,12 +14,26 @@ public class User {
 	private String surname;
 
 	private String address;
+	
+	private String gcmToken;
+	
+	public User(){
+		this.password=ApplicationConfig.createPassword();
+	}
+	
+	public User(UserEntity entity){
+		this.id=entity.getId();
+		this.name=entity.getName();
+		this.surname=entity.getSurname();
+		this.address=entity.getAddress();
+		this.gcmToken=entity.getGcmToken();
+	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -27,7 +42,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password=ApplicationConfig.createPassword();
 	}
 
 	public String getName() {
@@ -54,4 +69,11 @@ public class User {
 		this.address = address;
 	}
 
+	public String getGcmToken() {
+		return gcmToken;
+	}
+
+	public void setGcmToken(String gcmToken) {
+		this.gcmToken = gcmToken;
+	}
 }

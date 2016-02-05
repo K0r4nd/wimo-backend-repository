@@ -1,8 +1,14 @@
 package com.k0r4nd.wimo.data.model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.tomcat.util.security.MD5Encoder;
 
 import com.k0r4nd.wimo.api.model.User;
 
@@ -20,16 +26,24 @@ public class UserEntity {
 	private String surname;
 
 	private String address;
+	
+	private String gcmToken;
 
 	public UserEntity() {
 
 	}
 
 	public UserEntity(User user) {
-		this.password = user.getPassword();
+		this.id = user.getId()==null? UUID.randomUUID().toString():user.getId();
+		try {
+			this.password = MessageDigest.getInstance("MD5").digest(user.getPassword().getBytes()).toString();
+		} catch (NoSuchAlgorithmException e) {
+			this.password=user.getPassword();
+		}
 		this.name = user.getName();
 		this.surname = user.getSurname();
 		this.address = user.getAddress();
+		this.gcmToken=user.getGcmToken();
 	}
 
 	public String getId() {
@@ -45,7 +59,11 @@ public class UserEntity {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		try {
+			this.password = MessageDigest.getInstance("MD5").digest(password.getBytes()).toString();
+		} catch (NoSuchAlgorithmException e) {
+			this.password=password;
+		}
 	}
 
 	public String getName() {
@@ -72,4 +90,11 @@ public class UserEntity {
 		this.address = address;
 	}
 
+	public String getGcmToken() {
+		return gcmToken;
+	}
+
+	public void setGcmToken(String gcmToken) {
+		this.gcmToken = gcmToken;
+	}
 }
