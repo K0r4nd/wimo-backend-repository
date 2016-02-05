@@ -157,7 +157,5 @@ public class MockController {
 						.statusText("Paket wurde beim Versender übergeben").sentByUser(false)
 						.lastStatusUpdate(now.getTime() - ONE_HOUR_IN_MILLISECONDS).shipperName("HERMES")
 						.shippingDate(now.getTime() - ONE_HOUR_IN_MILLISECONDS).build());
-
 	}
-
 }
