@@ -14,20 +14,20 @@ public class User {
 	private String surname;
 
 	private String address;
-	
+
 	private String gcmToken;
-	
-	public User(){
-		this.password=ApplicationConfig.createPassword();
+
+	public User() {
+		this.password = ApplicationConfig.createPassword();
 	}
-	
-	public User(UserEntity entity){
-		this.id=entity.getId();
-		this.password=entity.getPassword();
-		this.name=entity.getName();
-		this.surname=entity.getSurname();
-		this.address=entity.getAddress();
-		this.gcmToken=entity.getGcmToken();
+
+	public User(UserEntity entity) {
+		this.id = entity.getId();
+		this.password = entity.getPassword();
+		this.name = entity.getName();
+		this.surname = entity.getSurname();
+		this.address = entity.getAddress();
+		this.gcmToken = entity.getGcmToken();
 	}
 
 	public String getId() {
@@ -43,7 +43,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password=ApplicationConfig.createPassword();
+		this.password = ApplicationConfig.createPassword();
+	}
+
+	public void removePassword() {
+		this.password = null;
 	}
 
 	public String getName() {

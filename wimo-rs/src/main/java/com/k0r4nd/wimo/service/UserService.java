@@ -9,20 +9,30 @@ import com.k0r4nd.wimo.data.repository.UserRepository;
 
 @Component
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
-	public User createUser(User user){
+	public User createUser(User user) {
 		UserEntity entity = new UserEntity(user);
 		userRepository.save(entity);
 		user.setId(entity.getId());
 		return user;
 	}
-	
-	public User findUserById(String id){
+
+	public User findUserById(String id) {
 		UserEntity entity = userRepository.findOne(id);
 		return new User(entity);
 	}
-	
+
+	public UserEntity findUserEntityById(String id) {
+		return userRepository.findOne(id);
+	}
+
+	public User save(UserEntity entity) {
+		userRepository.save(entity);
+		User result = new User(entity);
+		result.removePassword();
+		return result;
+	}
 }
