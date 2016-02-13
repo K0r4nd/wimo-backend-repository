@@ -1,9 +1,13 @@
 package com.k0r4nd.wimo.service;
 
 import static org.quartz.JobBuilder.newJob;
+import static org.quartz.JobKey.jobKey;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+import java.util.Date;
+
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -16,6 +20,7 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.k0r4nd.wimo.api.model.DeliveryStatus;
 import com.k0r4nd.wimo.api.model.Order;
 import com.k0r4nd.wimo.config.ApplicationConfig;
 import com.k0r4nd.wimo.ext.api.ShipperServiceFacade;
@@ -24,6 +29,9 @@ import com.k0r4nd.wimo.ext.api.ShipperServiceFacade;
 public class ScheduleService {
 
 	private Scheduler scheduler;
+
+	@Autowired
+	private ServletContext servletContext;
 
 	@Autowired
 	private ApplicationConfig config;
@@ -54,10 +62,9 @@ public class ScheduleService {
 			facade = dhlServiceFacade;
 		}
 		JobDataMap jobData = new JobDataMap();
-		jobData.put("serviceFacade", facade);
-		jobData.put("orderService", orderService);
-		jobData.put("pushService", pushService);
-		jobData.put("order", order);
+		jobData.put("orderId", order.getId());
+		jobData.put("trackingId", order.getTrackingId());
+		jobData.put("shipper", order.getShipperName());
 		JobDetail job = newJob(FetchOrderInfoJob.class).withIdentity(order.getId(), "orderInfoPush")
 				.usingJobData(jobData).build();
 
@@ -74,11 +81,26 @@ public class ScheduleService {
 
 	}
 
+	public void checkAndStopJob(Order order) {
+		Long now = new Date().getTime();
+		Long timeElapsedSinceLastUpdate = now - order.getLastStatusUpdate();
+		if (order.getDeliveryState() == DeliveryStatus.DELIVERED || order.getDeliveryState() == DeliveryStatus.CANCELLED
+				|| timeElapsedSinceLastUpdate > config.getMaximumJobDurationSinceLastUpdate()) {
+			try {
+				scheduler.deleteJob(jobKey(order.getId()));
+			} catch (SchedulerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 	@PostConstruct
 	void init() {
 		SchedulerFactory factory = new StdSchedulerFactory();
 		try {
 			Scheduler scheduler = factory.getScheduler();
+			scheduler.getContext().put("servletContext", servletContext);
 			scheduler.start();
 			this.scheduler = scheduler;
 		} catch (SchedulerException e) {

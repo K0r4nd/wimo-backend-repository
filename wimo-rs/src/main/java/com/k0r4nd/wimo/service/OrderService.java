@@ -25,6 +25,12 @@ public class OrderService {
 		return order;
 	}
 
+	public OrderEntity update(Order order) {
+		OrderEntity entity = new OrderEntity(order);
+		entity = orderRepository.save(entity);
+		return entity;
+	}
+
 	public List<Order> findOrdersByUser(User user) {
 		UserEntity userEntity = new UserEntity(user);
 		List<OrderEntity> orderEntities = orderRepository.findByUser(userEntity);

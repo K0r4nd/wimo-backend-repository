@@ -23,16 +23,20 @@ public class HermesResponse {
 	private Boolean sentByUser;
 
 	public HermesResponse(String trackingId, String shipperName, String destinationAddress, Long shippingDate,
-			Long deliveryDate, DeliveryStatus status,String statusText, Long lastStatusUpdate, Boolean sentByUser) {
-		this.trackingId=trackingId;
-		this.shipperName=shipperName;
-		this.destinationAddress=destinationAddress;
+			Long deliveryDate, DeliveryStatus status, String statusText, Long lastStatusUpdate, Boolean sentByUser) {
+		this.trackingId = trackingId;
+		this.shipperName = shipperName;
+		this.destinationAddress = destinationAddress;
 		this.shippingDate = shippingDate;
-		this.deliveryDate=deliveryDate;
+		this.deliveryDate = deliveryDate;
 		this.deliveryState = status;
-		this.statusText=statusText;
-		this.lastStatusUpdate=lastStatusUpdate;
-		this.sentByUser=sentByUser;
+		this.statusText = statusText;
+		this.lastStatusUpdate = lastStatusUpdate;
+		this.sentByUser = sentByUser;
+	}
+
+	public HermesResponse() {
+
 	}
 
 	public String getTrackingId() {
@@ -106,8 +110,8 @@ public class HermesResponse {
 	public void setSentByUser(Boolean sentByUser) {
 		this.sentByUser = sentByUser;
 	}
-	
-	public static class HermesResponseBuilder{
+
+	public static class HermesResponseBuilder {
 		private String trackingId;
 
 		private String shipperName;
@@ -125,57 +129,57 @@ public class HermesResponse {
 		private Long lastStatusUpdate;
 
 		private Boolean sentByUser;
-		
-		public HermesResponseBuilder trackingId(String trackingId){
-			this.trackingId=trackingId;
+
+		public HermesResponseBuilder trackingId(String trackingId) {
+			this.trackingId = trackingId;
 			return this;
 		}
-		
-		public HermesResponseBuilder shipperName(String shipperName){
-			this.shipperName=shipperName;
+
+		public HermesResponseBuilder shipperName(String shipperName) {
+			this.shipperName = shipperName;
 			return this;
 		}
-		
-		public HermesResponseBuilder destinationAddress(String destinationAddress){
-			this.destinationAddress=destinationAddress;
+
+		public HermesResponseBuilder destinationAddress(String destinationAddress) {
+			this.destinationAddress = destinationAddress;
 			return this;
 		}
-		
-		public HermesResponseBuilder shippingDate(Long shippingDate){
-			this.shippingDate=shippingDate;
+
+		public HermesResponseBuilder shippingDate(Long shippingDate) {
+			this.shippingDate = shippingDate;
 			return this;
 		}
-		
-		public HermesResponseBuilder deliveryDate(Long deliveryDate){
-			this.deliveryDate=deliveryDate;
+
+		public HermesResponseBuilder deliveryDate(Long deliveryDate) {
+			this.deliveryDate = deliveryDate;
 			return this;
 		}
-		
-		public HermesResponseBuilder deliveryState(DeliveryStatus deliveryState){
-			this.deliveryState=deliveryState;
+
+		public HermesResponseBuilder deliveryState(DeliveryStatus deliveryState) {
+			this.deliveryState = deliveryState;
 			return this;
 		}
-		
-		public HermesResponseBuilder statusText(String statusText){
-			this.statusText=statusText;
+
+		public HermesResponseBuilder statusText(String statusText) {
+			this.statusText = statusText;
 			return this;
 		}
-		
-		public HermesResponseBuilder lastStatusUpdate(Long lastStatusUpdate){
-			this.lastStatusUpdate=lastStatusUpdate;
+
+		public HermesResponseBuilder lastStatusUpdate(Long lastStatusUpdate) {
+			this.lastStatusUpdate = lastStatusUpdate;
 			return this;
 		}
-		
-		public HermesResponseBuilder sentByUser(Boolean sentByUser){
-			this.sentByUser=sentByUser;
+
+		public HermesResponseBuilder sentByUser(Boolean sentByUser) {
+			this.sentByUser = sentByUser;
 			return this;
 		}
-		
-		public HermesResponse build(){
-			return new HermesResponse(trackingId, shipperName, destinationAddress, shippingDate, deliveryDate, deliveryState, statusText, lastStatusUpdate, sentByUser);
+
+		public HermesResponse build() {
+			return new HermesResponse(trackingId, shipperName, destinationAddress, shippingDate, deliveryDate,
+					deliveryState, statusText, lastStatusUpdate, sentByUser);
 		}
-		
+
 	}
 
 }
-

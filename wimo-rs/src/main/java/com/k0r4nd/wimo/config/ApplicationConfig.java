@@ -14,30 +14,51 @@ import org.springframework.web.client.RestTemplate;
 public class ApplicationConfig {
 
 	private static SecureRandom random = new SecureRandom();
-	
+
 	private static PasswordEncoder encoder;
-	
+
 	@Value("${wimo.quartz.push.interval}")
 	private Integer scheduleInterval;
-	
+
+	@Value("${wimo.quartz.maximumJobDurationSinceLastUpdate}")
+	private Long maximumJobDurationSinceLastUpdate;
+
+	@Value("${wimo.gcm.endpoint}")
+	private String gcmEndpoint;
+
+	@Value("${wimo.gcm.apikey}")
+	private String gcmApiKey;
+
 	@Bean
-	public RestTemplate restTemplate(){
+	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 
 	public Integer getScheduleInterval() {
 		return scheduleInterval;
 	}
-	
+
 	@Bean
-	public static PasswordEncoder passwordEncoder(){
-		if(encoder==null){
+	public static PasswordEncoder passwordEncoder() {
+		if (encoder == null) {
 			encoder = new BCryptPasswordEncoder(10, random);
 		}
-		return encoder; 
+		return encoder;
 	}
-	
-	public static String createPassword(){
-		return new BigInteger(130,random).toString(32);
+
+	public static String createPassword() {
+		return new BigInteger(130, random).toString(32);
+	}
+
+	public Long getMaximumJobDurationSinceLastUpdate() {
+		return maximumJobDurationSinceLastUpdate;
+	}
+
+	public String getGcmEndpoint() {
+		return gcmEndpoint;
+	}
+
+	public String getGcmApiKey() {
+		return gcmApiKey;
 	}
 }

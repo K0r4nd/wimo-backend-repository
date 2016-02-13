@@ -23,16 +23,20 @@ public class DhlResponse {
 	private Boolean sentByUser;
 
 	public DhlResponse(String trackingId, String shipperName, String destinationAddress, Long shippingDate,
-			Long deliveryDate, DeliveryStatus status,String statusText, Long lastStatusUpdate, Boolean sentByUser) {
-		this.trackingId=trackingId;
-		this.shipperName=shipperName;
-		this.destinationAddress=destinationAddress;
+			Long deliveryDate, DeliveryStatus status, String statusText, Long lastStatusUpdate, Boolean sentByUser) {
+		this.trackingId = trackingId;
+		this.shipperName = shipperName;
+		this.destinationAddress = destinationAddress;
 		this.shippingDate = shippingDate;
-		this.deliveryDate=deliveryDate;
+		this.deliveryDate = deliveryDate;
 		this.deliveryState = status;
-		this.statusText=statusText;
-		this.lastStatusUpdate=lastStatusUpdate;
-		this.sentByUser=sentByUser;
+		this.statusText = statusText;
+		this.lastStatusUpdate = lastStatusUpdate;
+		this.sentByUser = sentByUser;
+	}
+
+	public DhlResponse() {
+
 	}
 
 	public String getTrackingId() {
@@ -106,8 +110,8 @@ public class DhlResponse {
 	public void setSentByUser(Boolean sentByUser) {
 		this.sentByUser = sentByUser;
 	}
-	
-	public static class DhlResponseBuilder{
+
+	public static class DhlResponseBuilder {
 		private String trackingId;
 
 		private String shipperName;
@@ -125,57 +129,57 @@ public class DhlResponse {
 		private Long lastStatusUpdate;
 
 		private Boolean sentByUser;
-		
-		public DhlResponseBuilder trackingId(String trackingId){
-			this.trackingId=trackingId;
+
+		public DhlResponseBuilder trackingId(String trackingId) {
+			this.trackingId = trackingId;
 			return this;
 		}
-		
-		public DhlResponseBuilder shipperName(String shipperName){
-			this.shipperName=shipperName;
+
+		public DhlResponseBuilder shipperName(String shipperName) {
+			this.shipperName = shipperName;
 			return this;
 		}
-		
-		public DhlResponseBuilder destinationAddress(String destinationAddress){
-			this.destinationAddress=destinationAddress;
+
+		public DhlResponseBuilder destinationAddress(String destinationAddress) {
+			this.destinationAddress = destinationAddress;
 			return this;
 		}
-		
-		public DhlResponseBuilder shippingDate(Long shippingDate){
-			this.shippingDate=shippingDate;
+
+		public DhlResponseBuilder shippingDate(Long shippingDate) {
+			this.shippingDate = shippingDate;
 			return this;
 		}
-		
-		public DhlResponseBuilder deliveryDate(Long deliveryDate){
-			this.deliveryDate=deliveryDate;
+
+		public DhlResponseBuilder deliveryDate(Long deliveryDate) {
+			this.deliveryDate = deliveryDate;
 			return this;
 		}
-		
-		public DhlResponseBuilder deliveryState(DeliveryStatus deliveryState){
-			this.deliveryState=deliveryState;
+
+		public DhlResponseBuilder deliveryState(DeliveryStatus deliveryState) {
+			this.deliveryState = deliveryState;
 			return this;
 		}
-		
-		public DhlResponseBuilder statusText(String statusText){
-			this.statusText=statusText;
+
+		public DhlResponseBuilder statusText(String statusText) {
+			this.statusText = statusText;
 			return this;
 		}
-		
-		public DhlResponseBuilder lastStatusUpdate(Long lastStatusUpdate){
-			this.lastStatusUpdate=lastStatusUpdate;
+
+		public DhlResponseBuilder lastStatusUpdate(Long lastStatusUpdate) {
+			this.lastStatusUpdate = lastStatusUpdate;
 			return this;
 		}
-		
-		public DhlResponseBuilder sentByUser(Boolean sentByUser){
-			this.sentByUser=sentByUser;
+
+		public DhlResponseBuilder sentByUser(Boolean sentByUser) {
+			this.sentByUser = sentByUser;
 			return this;
 		}
-		
-		public DhlResponse build(){
-			return new DhlResponse(trackingId, shipperName, destinationAddress, shippingDate, deliveryDate, deliveryState, statusText, lastStatusUpdate, sentByUser);
+
+		public DhlResponse build() {
+			return new DhlResponse(trackingId, shipperName, destinationAddress, shippingDate, deliveryDate,
+					deliveryState, statusText, lastStatusUpdate, sentByUser);
 		}
-		
+
 	}
 
 }
-

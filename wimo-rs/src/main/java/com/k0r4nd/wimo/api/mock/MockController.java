@@ -6,7 +6,10 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +31,7 @@ public class MockController {
 
 	private Map<String, HermesResponse> hermesPackages;
 
-	@RequestMapping("/dhl")
+	@RequestMapping(value = "/dhl", method = RequestMethod.GET)
 	public DhlResponse getDhlPackageByTrackingId(@RequestParam String trackingId) {
 		try {
 			if (trackingId.contains("dhl")) {
@@ -43,7 +46,7 @@ public class MockController {
 					response.setStatusText("Paket wurde elektronisch an DHL übermittelt");
 					response.setDeliveryDate(now.getTime() + 2 * ONE_DAY_IN_MILLISECONDS);
 					response.setShippingDate(now.getTime());
-					response.setLastStatusUpdate(now.getTime());
+					response.setLastStatusUpdate(now.getTime() + 2 * ONE_DAY_IN_MILLISECONDS);
 					break;
 				case 1:
 					response.setDeliveryState(DeliveryStatus.ON_DELIVERY);
@@ -76,7 +79,7 @@ public class MockController {
 		}
 	}
 
-	@RequestMapping("/hermes")
+	@RequestMapping(value = "/hermes", method = RequestMethod.GET)
 	public HermesResponse getHermesByTrackingId(@RequestParam String trackingId) {
 		try {
 			if (trackingId.contains("her")) {
@@ -122,6 +125,18 @@ public class MockController {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@RequestMapping(value = "/hermes/{trackingId}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public HermesResponse updateHermesStatus(@PathVariable String trackingId, @RequestBody HermesResponse object) {
+		this.hermesPackages.put(trackingId, object);
+		return object;
+	}
+
+	@RequestMapping(value = "/dhl/{trackingId}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public DhlResponse updatedhlStatus(@RequestBody DhlResponse object, @PathVariable String trackingId) {
+		this.dhlPackages.put(trackingId, object);
+		return object;
 	}
 
 	@PostConstruct
